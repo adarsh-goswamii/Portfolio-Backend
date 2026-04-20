@@ -9,13 +9,14 @@ from app.core.database import Base
 
 
 class Platform(str, enum.Enum):
-    GITHUB = "github"
-    LINKEDIN = "linkedin"
-    TWITTER = "twitter"
-    EMAIL = "email"
-    WEBSITE = "website"
-    YOUTUBE = "youtube"
-    OTHER = "other"
+    GITHUB = "GITHUB"
+    LINKEDIN = "LINKEDIN"
+    TWITTER = "TWITTER"
+    EMAIL = "EMAIL"
+    WEBSITE = "WEBSITE"
+    YOUTUBE = "YOUTUBE"
+    LEETCODE = "LEETCODE"
+    OTHER = "OTHER"
 
 
 class SocialLink(Base):
