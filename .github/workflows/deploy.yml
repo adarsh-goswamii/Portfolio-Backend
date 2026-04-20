@@ -13,6 +13,10 @@ env:
   CONTAINER_NAME: portfolio-backend
   ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
+defaults:
+  run:
+    working-directory: Portfolio-Backend
+
 jobs:
   lint:
     name: Lint
