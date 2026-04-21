@@ -97,9 +97,9 @@ jobs:
               --name ${{ env.CONTAINER_NAME }} \
               --restart unless-stopped \
               -p 8000:8000 \
-              -e DATABASE_URL=${{ vars.DATABASE_URL }} \
-              -e S3_BUCKET=${{ vars.S3_BUCKET }} \
-              -e AWS_REGION=${{ vars.AWS_REGION }} \
+              -e "DATABASE_URL=${{ vars.DATABASE_URL }}" \
+              -e "S3_BUCKET=${{ vars.S3_BUCKET }}" \
+              -e "AWS_REGION=${{ vars.AWS_REGION }}" \
               ${{ env.IMAGE_NAME }}:${{ github.sha }}
 
             docker image prune -f
