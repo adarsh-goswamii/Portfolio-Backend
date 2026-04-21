@@ -11,7 +11,7 @@ permissions:
 env:
   IMAGE_NAME: portfolio-backend
   CONTAINER_NAME: portfolio-backend
-  ECR_REGISTRY: ${{ vars\.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars\.AWS_REGION }}.amazonaws.com
+  ECR_REGISTRY: ${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
 
 jobs:
   lint:
@@ -68,9 +68,9 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ vars\.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ vars\.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars\.AWS_REGION }}
+          aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ vars.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
 
       - name: Login to ECR
         uses: aws-actions/amazon-ecr-login@v2
@@ -85,12 +85,12 @@ jobs:
       - name: Deploy on EC2
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ vars\.EC2_HOST }}
-          username: ${{ vars\.EC2_USER }}
-          key: ${{ vars\.EC2_SSH_KEY }}
+          host: ${{ vars.EC2_HOST }}
+          username: ${{ vars.EC2_USER }}
+          key: ${{ vars.EC2_SSH_KEY }}
           envs: IMAGE_URI
           script: |
-            aws ecr get-login-password --region ${{ vars\.AWS_REGION }} | \
+            aws ecr get-login-password --region ${{ vars.AWS_REGION }} | \
               docker login --username AWS --password-stdin ${{ env.ECR_REGISTRY }}
 
             docker pull $IMAGE_URI
@@ -102,9 +102,9 @@ jobs:
               --name ${{ env.CONTAINER_NAME }} \
               --restart unless-stopped \
               -p 8000:8000 \
-              -e DATABASE_URL=${{ vars\.DATABASE_URL }} \
-              -e S3_BUCKET=${{ vars\.S3_BUCKET }} \
-              -e AWS_REGION=${{ vars\.AWS_REGION }} \
+              -e DATABASE_URL=${{ vars.DATABASE_URL }} \
+              -e S3_BUCKET=${{ vars.S3_BUCKET }} \
+              -e AWS_REGION=${{ vars.AWS_REGION }} \
               $IMAGE_URI
 
             docker image prune -f
