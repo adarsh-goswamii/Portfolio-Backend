@@ -1,18 +1,19 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import about, contact, experience, projects, resume, skills, social_links
+from app.routers import about, blog, contact, experience, projects, resume, skills, social_links
 
 app = FastAPI(title="Portfolio API", version="0.1.0")
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_methods=["GET", "POST"],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
 )
 
 app.include_router(about.router)
+app.include_router(blog.router)
 app.include_router(experience.router)
 app.include_router(skills.router)
 app.include_router(social_links.router)
